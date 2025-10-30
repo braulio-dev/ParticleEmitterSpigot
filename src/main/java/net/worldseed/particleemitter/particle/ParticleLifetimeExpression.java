@@ -13,11 +13,7 @@ public final class ParticleLifetimeExpression implements ParticleLifetime {
     private final ParticleEmitterScript max_lifetime;
 
     static {
-        try {
-            DEFAULT = new ParticleLifetimeExpression(ParticleEmitterScript.fromDouble(0), null);
-        } catch (InvocationTargetException | NoSuchMethodException | InstantiationException | IllegalAccessException e) {
-            throw new RuntimeException(e);
-        }
+        DEFAULT = new ParticleLifetimeExpression(ParticleEmitterScript.fromDouble(0), null);
     }
 
     public ParticleLifetimeExpression(ParticleEmitterScript expiration_expression, ParticleEmitterScript max_lifetime) {
