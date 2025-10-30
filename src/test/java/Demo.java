@@ -4,18 +4,18 @@ import com.google.gson.JsonObject;
 import com.google.gson.stream.JsonReader;
 import net.minestom.server.event.player.AsyncPlayerConfigurationEvent;
 import net.minestom.server.instance.LightingChunk;
-import net.minestom.server.particle.Particle;
+import org.bukkit.Particle;
 import net.worldseed.particleemitter.emitters.EmitterLifetime;
 import net.minestom.server.MinecraftServer;
 import net.minestom.server.coordinate.Pos;
-import net.minestom.server.coordinate.Vec;
+import org.bukkit.util.Vector;
 import net.minestom.server.entity.GameMode;
 import net.minestom.server.entity.Player;
 import net.minestom.server.event.GlobalEventHandler;
 import net.minestom.server.instance.InstanceContainer;
 import net.minestom.server.instance.InstanceManager;
 import net.minestom.server.instance.block.Block;
-import net.minestom.server.network.packet.server.play.ParticlePacket;
+import net.worldseed.particleemitter.runtime.ParticlePacket;
 import net.minestom.server.timer.ExecutionType;
 import net.minestom.server.timer.TaskSchedule;
 import net.worldseed.particleemitter.runtime.ParticleEmitter;
@@ -59,7 +59,7 @@ public class Demo {
             player.setRespawnPoint(new Pos(0, 42, 0));
 
             for (var emitter : emitters) {
-                emitter.setPosition(new Vec(0, 60, 0));
+                emitter.setPosition(new Vector(0, 60, 0));
             }
         });
 

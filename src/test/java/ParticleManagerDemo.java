@@ -2,10 +2,10 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.stream.JsonReader;
-import net.minestom.server.coordinate.Vec;
+import org.bukkit.util.Vector;
 import net.minestom.server.instance.InstanceContainer;
-import net.minestom.server.network.packet.server.play.ParticlePacket;
-import net.minestom.server.particle.Particle;
+import net.worldseed.particleemitter.runtime.ParticlePacket;
+import org.bukkit.Particle;
 import net.worldseed.particleemitter.emitters.EmitterLifetime;
 import net.worldseed.particleemitter.runtime.ParticleEmitter;
 import net.worldseed.particleemitter.runtime.ParticleParser;
@@ -32,7 +32,7 @@ public class ParticleManager {
         return emitters;
     }
 
-    public static void playParticle(String particleName, Vec position, int amount, InstanceContainer instance, boolean playInstantlyOnce) throws FileNotFoundException, UnsupportedEncodingException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+    public static void playParticle(String particleName, Vector position, int amount, InstanceContainer instance, boolean playInstantlyOnce) throws FileNotFoundException, UnsupportedEncodingException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
         List<ParticleEmitter> emitters = getParticleEmitters(particleName,amount);
         for (var emitter : emitters) {
             emitter.setPosition(position);

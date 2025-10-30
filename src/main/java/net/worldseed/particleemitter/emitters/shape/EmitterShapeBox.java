@@ -6,7 +6,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 import net.worldseed.particleemitter.emitters.EmitterShape;
 import net.worldseed.particleemitter.misc.EmitterDirectionType;
-import net.minestom.server.coordinate.Vec;
+import org.bukkit.util.Vector;
 import net.worldseed.particleemitter.runtime.ParticleEmitterScript;
 import net.worldseed.particleemitter.runtime.ParticleInterface;
 
@@ -59,7 +59,7 @@ public record EmitterShapeBox(ParticleEmitterScript offsetX, ParticleEmitterScri
     }
 
     @Override
-    public Vec emitPosition(ParticleInterface particleEmitter) {
+    public Vector emitPosition(ParticleInterface particleEmitter) {
         double x = offsetX.evaluate(particleEmitter);
         double y = offsetY.evaluate(particleEmitter);
         double z = offsetZ.evaluate(particleEmitter);
@@ -90,16 +90,16 @@ public record EmitterShapeBox(ParticleEmitterScript offsetX, ParticleEmitterScri
             }
         }
 
-        return new Vec(x + randomX, y + randomY, z + randomZ);
+        return new Vector(x + randomX, y + randomY, z + randomZ);
     }
 
     @Override
-    public Vec emitDirection(Vec origin, ParticleInterface particleEmitter) {
+    public Vector emitDirection(Vector origin, ParticleInterface particleEmitter) {
         return switch (type) {
-            case INWARDS -> origin.sub(emitPosition(particleEmitter)).normalize();
-            case OUTWARDS -> emitPosition(particleEmitter).sub(origin).normalize();
+            case INWARDS -> origin.subtract(emitPosition(particleEmitter)).normalize();
+            case OUTWARDS -> emitPosition(particleEmitter).subtract(origin).normalize();
             case VELOCITY ->
-                    new Vec(directionX.evaluate(particleEmitter), directionY.evaluate(particleEmitter), directionZ.evaluate(particleEmitter)).normalize();
+                    new Vector(directionX.evaluate(particleEmitter), directionY.evaluate(particleEmitter), directionZ.evaluate(particleEmitter)).normalize();
         };
     }
 

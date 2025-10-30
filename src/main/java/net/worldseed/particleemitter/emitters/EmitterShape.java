@@ -1,10 +1,10 @@
 package net.worldseed.particleemitter.emitters;
 
-import net.minestom.server.coordinate.Vec;
+import org.bukkit.util.Vector;
 import net.worldseed.particleemitter.runtime.ParticleInterface;
 
 public interface EmitterShape {
-    Vec emitPosition(ParticleInterface particleEmitter);
-    Vec emitDirection(Vec origin, ParticleInterface particleEmitter);
+    Vector emitPosition(ParticleInterface particleEmitter);
+    Vector emitDirection(Vector origin, ParticleInterface particleEmitter);
     boolean canRotate();
 }

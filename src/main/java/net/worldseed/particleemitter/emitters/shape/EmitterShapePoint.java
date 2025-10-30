@@ -4,7 +4,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import net.worldseed.particleemitter.emitters.EmitterShape;
-import net.minestom.server.coordinate.Vec;
+import org.bukkit.util.Vector;
 import net.worldseed.particleemitter.runtime.ParticleEmitterScript;
 import net.worldseed.particleemitter.runtime.ParticleInterface;
 
@@ -55,16 +55,16 @@ public record EmitterShapePoint(ParticleEmitterScript offsetX, ParticleEmitterSc
     }
 
     @Override
-    public Vec emitPosition(ParticleInterface particleEmitter) {
-        return new Vec(offsetX.evaluate(particleEmitter), offsetY.evaluate(particleEmitter), offsetZ.evaluate(particleEmitter));
+    public Vector emitPosition(ParticleInterface particleEmitter) {
+        return new Vector(offsetX.evaluate(particleEmitter), offsetY.evaluate(particleEmitter), offsetZ.evaluate(particleEmitter));
     }
 
     @Override
-    public Vec emitDirection(Vec origin, ParticleInterface particleEmitter) {
+    public Vector emitDirection(Vector origin, ParticleInterface particleEmitter) {
         if (directionX == null) {
-            return new Vec(Math.random(), Math.random(), Math.random()).normalize();
+            return new Vector(Math.random(), Math.random(), Math.random()).normalize();
         } else {
-            return new Vec(directionX.evaluate(particleEmitter), directionY.evaluate(particleEmitter), directionZ.evaluate(particleEmitter)).normalize();
+            return new Vector(directionX.evaluate(particleEmitter), directionY.evaluate(particleEmitter), directionZ.evaluate(particleEmitter)).normalize();
         }
     }
 

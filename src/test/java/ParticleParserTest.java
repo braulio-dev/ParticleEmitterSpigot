@@ -2,7 +2,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.stream.JsonReader;
-import net.minestom.server.particle.Particle;
+import org.bukkit.Particle;
 import org.junit.jupiter.api.Test;
 import net.worldseed.particleemitter.runtime.ParticleParser;
 import net.worldseed.particleemitter.runtime.ParticleEmitter;

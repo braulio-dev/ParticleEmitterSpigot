@@ -120,10 +120,10 @@ List<ParticleEmitter> emitters = new ArrayList<>();
 ```
 Sample code for how this can be done in practice can be found in the `src/test/java/ParticleManagerDemo.java` file, where the video demonstration above was created with these calls:
 ```java
-ParticleManager.playParticle("rect.particle.json", new Vec(0, 45, 0), 1, instanceContainer, false);
-ParticleManager.playParticle("rect.particle.json", new Vec(3, 45, 0), 2, instanceContainer, false);
-ParticleManager.playParticle("rect.particle.json", new Vec(6, 45, 0), 3, instanceContainer, false);
-ParticleManager.playParticle("rect.particle.json", new Vec(9, 45, 0), 4, instanceContainer, false);
+ParticleManager.playParticle("rect.particle.json", new Vector(0, 45, 0), 1, instanceContainer, false);
+ParticleManager.playParticle("rect.particle.json", new Vector(3, 45, 0), 2, instanceContainer, false);
+ParticleManager.playParticle("rect.particle.json", new Vector(6, 45, 0), 3, instanceContainer, false);
+ParticleManager.playParticle("rect.particle.json", new Vector(9, 45, 0), 4, instanceContainer, false);
 ```
 
 ### Playing a particle animation "once" over its lifetime

@@ -1,14 +1,12 @@
 package net.worldseed.particleemitter.runtime;
 
-import net.minestom.server.coordinate.Point;
 import net.worldseed.particleemitter.emitters.EmitterShape;
 import net.worldseed.particleemitter.generator.ParticleGenerator;
 import net.hollowcube.mql.foreign.Query;
-import net.minestom.server.coordinate.Vec;
-import net.minestom.server.network.packet.server.play.ParticlePacket;
 import net.worldseed.particleemitter.particle.ParticleAppearanceTinting;
 import net.worldseed.particleemitter.particle.ParticleInitialSpeed;
 import net.worldseed.particleemitter.particle.ParticleLifetime;
+import org.bukkit.util.Vector;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.concurrent.ThreadLocalRandom;
@@ -18,7 +16,7 @@ public class Particle extends ParticleInterface {
     private final ParticleAppearanceTinting particleColour;
     private final ParticleLifetime particleLifetime;
     private final ParticlePacket packet;
-    private final net.minestom.server.particle.Particle type;
+    private final org.bukkit.Particle type;
     private final ParticleInitialSpeed speed;
 
     double particle_age;
@@ -100,7 +98,7 @@ public class Particle extends ParticleInterface {
         return packet;
     }
 
-    public Particle(net.minestom.server.particle.Particle type, EmitterShape shape, float yaw, Point offset, ParticleEmitter emitter, ParticleAppearanceTinting particleColour, ParticleLifetime particleLifetime, ParticleInitialSpeed particleSpeed) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+    public Particle(org.bukkit.Particle type, EmitterShape shape, float yaw, Vector offset, ParticleEmitter emitter, ParticleAppearanceTinting particleColour, ParticleLifetime particleLifetime, ParticleInitialSpeed particleSpeed) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
         this.particle_age = 0;
 
         this.particle_random_1 = Math.random();
@@ -115,33 +113,33 @@ public class Particle extends ParticleInterface {
         this.particleLifetime = particleLifetime;
         this.speed = particleSpeed;
 
-        Vec origin = rotateAroundOrigin(yaw, shape.emitPosition(this));
-        Vec position = origin.add(offset);
+        Vector origin = rotateAroundOrigin(yaw, shape.emitPosition(this));
+        Vector position = origin.add(offset);
 
-        if (type == net.minestom.server.particle.Particle.SOUL_FIRE_FLAME
-                || type == net.minestom.server.particle.Particle.FLAME
-                || type == net.minestom.server.particle.Particle.SMOKE
-                || type == net.minestom.server.particle.Particle.FIREWORK) {
-            Vec s = new Vec(speed.speedX().evaluate(this), speed.speedY().evaluate(this), speed.speedZ().evaluate(this));
-            Vec direction = shape.emitDirection(origin, this).mul(s);
+        if (type == org.bukkit.Particle.SOUL_FIRE_FLAME
+                || type == org.bukkit.Particle.FLAME
+                || type == org.bukkit.Particle.SMOKE
+                || type == org.bukkit.Particle.FIREWORK) {
+            Vector s = new Vector(speed.speedX().evaluate(this), speed.speedY().evaluate(this), speed.speedZ().evaluate(this));
+            Vector direction = shape.emitDirection(origin, this).multiply(s);
 
             if (shape.canRotate()) {
                 direction = rotateAroundOrigin(yaw, direction);
             }
             this.packet = draw(position, direction);
         } else {
-            this.packet = draw(position, Vec.ZERO);
+            this.packet = draw(position, new Vector());
         }
     }
 
-    private Vec rotateAroundOrigin(float yaw, Vec emitPosition) {
+    private Vector rotateAroundOrigin(float yaw, Vector emitPosition) {
         return emitPosition.rotateAroundY(Math.toRadians(yaw));
     }
 
-    public ParticlePacket draw(Vec start, Vec direction) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+    public ParticlePacket draw(Vector start, Vector direction) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
         ParticleAppearanceTinting.ColourEvaluated colour = particleColour.evaluate(this);
 
-        if (type == net.minestom.server.particle.Particle.DUST_COLOR_TRANSITION) {
+        if (type == org.bukkit.Particle.DUST_COLOR_TRANSITION) {
             int var17 = (int)(8.0D / (ThreadLocalRandom.current().nextDouble() * 0.8D + 0.2D));
             double lifetimeSeconds = ((int)Math.max((float)var17, 1.0F)) * 1.0 / 20;
 
@@ -154,13 +152,13 @@ public class Particle extends ParticleInterface {
 
             return ParticleGenerator.buildParticle(
                     type,
-                    start.x(),
-                    start.y(),
-                    start.z(),
+                    start.getX(),
+                    start.getY(),
+                    start.getZ(),
                     1,
-                    direction.x(),
-                    direction.y(),
-                    direction.z(),
+                    direction.getX(),
+                    direction.getY(),
+                    direction.getZ(),
                     colour.r(),
                     colour.g(),
                     colour.b(),
@@ -171,13 +169,13 @@ public class Particle extends ParticleInterface {
         } else {
             return ParticleGenerator.buildParticle(
                     type,
-                    start.x(),
-                    start.y(),
-                    start.z(),
+                    start.getX(),
+                    start.getY(),
+                    start.getZ(),
                     1,
-                    direction.x(),
-                    direction.y(),
-                    direction.z(),
+                    direction.getX(),
+                    direction.getY(),
+                    direction.getZ(),
                     colour.r(),
                     colour.g(),
                     colour.b());

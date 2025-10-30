@@ -18,6 +18,7 @@ import net.worldseed.particleemitter.particle.ParticleAppearanceTinting;
 import net.worldseed.particleemitter.particle.ParticleInitialSpeed;
 import net.worldseed.particleemitter.particle.ParticleLifetime;
 import net.worldseed.particleemitter.particle.ParticleLifetimeExpression;
+import org.bukkit.Particle;
 
 import java.lang.reflect.InvocationTargetException;
 
@@ -28,7 +29,7 @@ public class ParticleParser {
      * @param description The JSON object describing the particle emitter.
      * @return The particle emitter.
      */
-    public static ParticleEmitter parse(net.minestom.server.particle.Particle type, int updatesPerSecond, JsonObject description) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+    public static ParticleEmitter parse(org.bukkit.Particle type, int updatesPerSecond, JsonObject description) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
         String version = description.get("format_version").getAsString();
         JsonObject particleEffect = description.get("particle_effect").getAsJsonObject();
         JsonObject components = particleEffect.get("components").getAsJsonObject();
@@ -194,6 +195,6 @@ public class ParticleParser {
     }
 
     public static ParticleEmitter parse(int updatesPerSecond, JsonObject description) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
-        return parse(net.minestom.server.particle.Particle.DUST, updatesPerSecond, description);
+        return parse(Particle.DUST, updatesPerSecond, description);
     }
 }

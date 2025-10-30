@@ -5,7 +5,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import net.worldseed.particleemitter.emitters.EmitterShape;
 import net.worldseed.particleemitter.misc.EmitterDirectionType;
-import net.minestom.server.coordinate.Vec;
+import org.bukkit.util.Vector;
 import net.worldseed.particleemitter.runtime.ParticleEmitterScript;
 import net.worldseed.particleemitter.runtime.ParticleInterface;
 
@@ -45,12 +45,12 @@ public record EmitterShapeEntityAABB(boolean surfaceOnly,
     }
 
     @Override
-    public Vec emitPosition(ParticleInterface particleEmitter) {
+    public Vector emitPosition(ParticleInterface particleEmitter) {
         return null;
     }
 
     @Override
-    public Vec emitDirection(Vec origin, ParticleInterface particleEmitter) {
+    public Vector emitDirection(Vector origin, ParticleInterface particleEmitter) {
         return null;
     }
 

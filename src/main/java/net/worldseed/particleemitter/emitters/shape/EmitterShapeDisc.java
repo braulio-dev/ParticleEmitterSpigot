@@ -7,7 +7,7 @@ import com.google.gson.JsonPrimitive;
 import net.worldseed.particleemitter.emitters.EmitterShape;
 import net.worldseed.particleemitter.misc.EmitterDirectionType;
 import net.worldseed.particleemitter.misc.EmitterPlaneNormalType;
-import net.minestom.server.coordinate.Vec;
+import org.bukkit.util.Vector;
 import net.worldseed.particleemitter.runtime.ParticleEmitterScript;
 import net.worldseed.particleemitter.runtime.ParticleInterface;
 
@@ -101,7 +101,7 @@ public record EmitterShapeDisc(EmitterPlaneNormalType planeNormalType,
     }
 
     @Override
-    public Vec emitPosition(ParticleInterface particleEmitter) {
+    public Vector emitPosition(ParticleInterface particleEmitter) {
         double normalX = 0;
         double normalY = 0;
         double normalZ = 0;
@@ -133,23 +133,23 @@ public record EmitterShapeDisc(EmitterPlaneNormalType planeNormalType,
             radius *= Math.random();
         }
 
-        Vec normal = new Vec(normalX, normalY, normalZ);
-        Vec tangent = (normalX == 0 && normalY == 0 ? new Vec(0, -normalZ, normalY) : new Vec(-normalY, normalX, 0)).normalize();
-        Vec w = normal.cross(tangent).normalize();
+        Vector normal = new Vector(normalX, normalY, normalZ);
+        Vector tangent = (normalX == 0 && normalY == 0 ? new Vector(0, -normalZ, normalY) : new Vector(-normalY, normalX, 0)).normalize();
+        Vector w = normal.crossProduct(tangent).normalize();
 
         double x = Math.cos(angle) * radius;
         double z = Math.sin(angle) * radius;
 
-        return w.mul(x).add(tangent.mul(z)).add(offsetX, offsetY, offsetZ);
+        return w.multiply(x).add(tangent.multiply(z)).add(new Vector(offsetX, offsetY, offsetZ));
     }
 
     @Override
-    public Vec emitDirection(Vec origin, ParticleInterface particleEmitter) {
+    public Vector emitDirection(Vector origin, ParticleInterface particleEmitter) {
         return switch (type) {
-            case INWARDS -> origin.sub(emitPosition(particleEmitter)).normalize();
-            case OUTWARDS -> emitPosition(particleEmitter).sub(origin).normalize();
+            case INWARDS -> origin.subtract(emitPosition(particleEmitter)).normalize();
+            case OUTWARDS -> emitPosition(particleEmitter).subtract(origin).normalize();
             case VELOCITY ->
-                    new Vec(directionX.evaluate(particleEmitter), directionY.evaluate(particleEmitter), directionZ.evaluate(particleEmitter)).normalize();
+                    new Vector(directionX.evaluate(particleEmitter), directionY.evaluate(particleEmitter), directionZ.evaluate(particleEmitter)).normalize();
         };
     }
 
